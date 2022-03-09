@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
         const validInputsModal = (uf,city,street)=>{
             if(uf && city && street){
-                requestSearch("http://viacep.com.br/ws/"+uf+"/"+city+"/"+street+"/json/","street");
+                requestSearch("https://viacep.com.br/ws/"+uf+"/"+city+"/"+street+"/json/","street");
                 hiddenDivContent(modalUf);
             }
             else{
