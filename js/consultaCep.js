@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
         const search = (contentSearch)=>{
             if(validInputCep.test(contentSearch)||validInputCepHifen.test(contentSearch)){
-                requestSearch("https://viacep.com.br/ws/"+contentSearch+"/json/");
+                requestSearch("http://viacep.com.br/ws/"+contentSearch+"/json/");
             }
             else if(validInputLogradouro.test(contentSearch)){
                 showDivContent(modalUf);
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             selectUf.addEventListener("change",()=>{
                 var uf = selectUf.value;
                 removeCitySelect();
-                requestSearch("https://servicodados.ibge.gov.br/api/v1/localidades/estados/"+uf+"/municipios");
+                requestSearch("http://servicodados.ibge.gov.br/api/v1/localidades/estados/"+uf+"/municipios");
             })
         }
 
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
         const validInputsModal = (uf,city,street)=>{
             if(uf && city && street){
-                requestSearch("https://viacep.com.br/ws/"+uf+"/"+city+"/"+street+"/json/","street");
+                requestSearch("http://viacep.com.br/ws/"+uf+"/"+city+"/"+street+"/json/","street");
                 hiddenDivContent(modalUf);
             }
             else{
