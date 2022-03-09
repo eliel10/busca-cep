@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="imagens/mapa-img.png">
+    <script type="module" src="js/consultaCep.js"></script>
+    <title>Busca CEP</title>
+</head>
+<body>
+    <main class="container">
+        <div class="container__consulta-cep container-contents">
+            <div>
+                <h1 class="consulta-cep__title">Busca CEP</h1>
+                <form class="consulta-cep__form" novalidate>
+                    <label for="cep">Informe o CEP ou a rua</label>
+                    <div class="content-cep">
+                        <input type="text" id="cep">
+                        <img src="imagens/loading.svg" class="loading disabled">
+                    </div>
+                    <button class="consulta-cep__btnSearch primary">Buscar</button>
+                </form>
+            </div>
+            <img src="imagens/mapa-img.png" class="img-mapa">
+        </div>
+
+        
+        <div class="container__resultado-busca container-contents disabled">
+            <h2 class="resultado-busca__title">Resultado da busca por CEP</h2>
+            <table class="resultado-busca__table">
+                <thead>
+                    <tr>
+                        <th>Logradouro</th>
+                        <th>Bairro</th>
+                        <th>Localidade</th>
+                        <th>Estado</th>
+                        <th>Cep</th>
+                        <th>DDD</th>
+                    </tr>
+                <tbody class="tbody">
+                    
+                </tbody>
+                </thead>
+            </table>
+            <button class="resultado-busca__volta-busca primary">Nova Busca</button>
+        </div>
+        <div class="right">
+            <p>All rights reserved by Eliel &copy;</p>
+            <p>Suzano SP - 2022</p>
+        </div>
+    </main>
+
+    <div class="modal-fullscreen disabled">
+        <div class="modal__window">
+            
+            <h2>Informe o Estado e a Cidade</h2>
+            <div class="window__content">
+                <fieldset>
+                    <legend>UF</legend>
+                    <select class="select-uf">
+                        <option value=""></option>
+                        <option value="sp">sp</option>
+                        <option value="go">go</option>
+                        <option value="mg">mg</option>
+                        <option value="ms">ms</option>
+                        <option value="am">am</option>
+                        <option value="rr">rr</option>
+                        <option value="ro">ro</option>
+                        <option value="ce">ce</option>
+                        <option value="rj">rj</option>
+                        <option value="ac">ac</option>
+                        <option value="ba">ba</option>
+                        <option value="al">al</option>
+                        <option value="ap">ap</option>
+                        <option value="df">df</option>
+                        <option value="es">es</option>
+                        <option value="ma">ma</option>
+                        <option value="mt">mt</option>
+                        <option value="pa">pa</option>
+                        <option value="pb">pb</option>
+                        <option value="pr">pr</option>
+                        <option value="pe">pe</option>
+                        <option value="pi">pi</option>
+                        <option value="rn">rn</option>
+                        <option value="rs">rs</option>
+                        <option value="sc">sc</option>
+                        <option value="se">se</option>
+                        <option value="to">to</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <legend>Cidade</legend>
+                    <select class="select-cidades">
+                        
+                    </select>
+                </fieldset>
+            </div>
+            <button class="btn-confirm-modal primary">OK</button>
+        </div>
+    </div>
+</body>
+</html>

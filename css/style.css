@@ -1,0 +1,147 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: sans-serif;
+    background-image: url("../imagens/img-fundo.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+h1{
+    margin: 25px 0;
+}
+h2{
+    margin: 25px 0;
+}
+label{
+    margin: 10px 0 0;
+}
+input[type="text"]{
+    width: 300px;
+    padding: 10px 10px;
+    outline: none;
+    border: 1px solid #000;
+}
+tbody tr:nth-child(even){
+    background-color: #0091df;
+    color:#fff;
+}
+input[type="text"]:focus{
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0, 0.3);
+}
+.container{
+    max-width: 950px;
+    margin: 0 auto;
+}
+.primary{
+    width: fit-content;
+    padding: 10px;
+    margin: 5px 0 0;
+    background-color: #222a69;
+    color:#fff;
+    border:none;
+    outline: none;
+}
+.consulta-cep__btnSearch:focus,.resultado-busca__volta-busca:focus,.btn-confirm-modal:focus{
+    box-shadow: 0px 0px 10px 1px rgba(0,0,250, 0.3);
+}
+.container-contents{
+    padding: 30px 100px;
+    /* border:1px solid #0071ad; */
+    background-color: rgba(247, 247, 247,0.8);
+    box-shadow: 0px 0px 30px 0px rgba(0,0,0, 0.3);
+    /* margin: 0 0 0 100px; */
+}
+.container__consulta-cep{
+    display: flex;
+    justify-content: space-between;
+}
+.consulta-cep__form{
+    display: flex;
+    flex-direction: column;
+}
+.resultado-busca__table{
+    width: 100%;
+    margin: 30px 0;
+    border-collapse: collapse;
+    font-size: 13px;
+    border-radius: 50px;
+}
+.resultado-busca__table thead{
+    background-color: #0071ad;
+}
+.resultado-busca__table thead th{
+    padding: 15px 10px;
+    color:#fff;
+}
+.resultado-busca__table tbody td{
+    padding: 5px;
+}
+.content-cep{
+    /* border: 1px solid red; */
+    display: flex;
+    margin: 15px 0 30px;
+    align-items: center;
+}
+.loading{
+    width: 35px;
+}
+.right{
+    margin: 22px 0;
+    text-align: center;
+    color: #fff;
+}
+.right *{
+    margin: 5px 0;
+}
+.img-mapa{
+    width: 300px;
+}
+.modal-fullscreen{
+    position: absolute;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    top:0;
+    left: 0;
+    background-color: rgba(0, 0, 0,0.5);
+}
+.modal__window{
+    width: 40vw;
+    height: fit-content;
+    padding: 20px;
+    margin-top: 15vh;
+    margin-left: 30vw;
+    background-color: rgb(247, 247, 247);
+}
+.window__content{
+    display: flex;
+    gap: 10px;
+}
+fieldset{
+    width: 50%;
+    height: 30%;
+    margin: 10px 0;
+    border:1px solid #000;
+}
+select{
+    margin: 20px;
+    padding: 10px;
+    border:1px solid #000;
+}
+.select-uf{
+    text-transform: uppercase;
+}
+.disabled{
+    display: none;
+}
+
+@media screen and (max-width:814px){
+    .img-mapa{
+        width: 60%;
+        position: absolute;
+        z-index: -1;
+    }
+}
