@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="imagens/mapa-img.png">
-    <script type="module" src="js/consultaCep.js"></script>
+    <script src="js/consultaCep.js"></script>
     <title>Busca CEP</title>
 </head>
 <body>
@@ -30,21 +30,23 @@
         
         <div class="container__resultado-busca container-contents disabled">
             <h2 class="resultado-busca__title">Resultado da busca por CEP</h2>
-            <table class="resultado-busca__table">
-                <thead>
-                    <tr>
-                        <th>Logradouro</th>
-                        <th>Bairro</th>
-                        <th>Localidade</th>
-                        <th>Estado</th>
-                        <th>Cep</th>
-                        <th>DDD</th>
-                    </tr>
-                <tbody class="tbody">
-                    
-                </tbody>
-                </thead>
-            </table>
+            <div class="content-table">
+                <table class="resultado-busca__table">
+                    <thead>
+                        <tr>
+                            <th>Logradouro</th>
+                            <th>Bairro</th>
+                            <th>Localidade</th>
+                            <th>Estado</th>
+                            <th>Cep</th>
+                            <th>DDD</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+                        
+                    </tbody>
+                </table>
+            </div>
             <button class="resultado-busca__volta-busca primary">Nova Busca</button>
         </div>
         <div class="right">
