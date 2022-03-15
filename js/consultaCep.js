@@ -148,6 +148,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             citys.forEach(e=>{
                 var option = document.createElement("option");
                 option.textContent=e.nome;
+                option.value=e.nome;
                 selectCity.appendChild(option);
             })
         }
@@ -184,8 +185,8 @@ document.addEventListener("DOMContentLoaded",()=>{
         }
 
         const removeCitySelect  = ()=>{
-            while(selectCity.firstChild){
-                selectCity.removeChild(selectCity.firstChild);
+            while(selectCity.lastChild){
+                selectCity.removeChild(selectCity.lastChild);
             }
         }
 
