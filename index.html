@@ -7,31 +7,31 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="imagens/mapa-img.png">
-    <script src="js/consultaCep.js"></script>
+    <script type="module" src="js/consultaCep.js"></script>
     <title>Busca CEP</title>
 </head>
 <body>
     <main class="container">
-        <div class="container__consulta-cep container-contents">
+        <div class="container__search-cep container-contents">
             <div class="content-form">
-                <h1 class="consulta-cep__title">Busca CEP</h1>
-                <form class="consulta-cep__form" novalidate>
+                <h1 class="search-cep__title">Busca CEP</h1>
+                <form class="search-cep__form" novalidate>
                     <label for="cep">Informe o CEP ou a rua</label>
                     <div class="content-cep">
                         <input type="text" id="cep">
                         <img src="imagens/loading.svg" class="loading disabled">
                     </div>
-                    <button class="consulta-cep__btnSearch primary">Buscar</button>
+                    <button class="search-cep__btnSearch primary">Buscar</button>
                 </form>
             </div>
             <img src="imagens/mapa-img.png" class="img-mapa">
         </div>
 
         
-        <div class="container__resultado-busca container-contents disabled">
-            <h2 class="resultado-busca__title">Resultado da busca por CEP</h2>
+        <div class="container__result-search container-contents disabled">
+            <h2 class="result-search__title">Resultado da busca por CEP</h2>
             <div class="content-table">
-                <table class="resultado-busca__table">
+                <table class="result-search__table">
                     <thead>
                         <tr>
                             <th>Logradouro</th>
@@ -47,7 +47,7 @@
                     </tbody>
                 </table>
             </div>
-            <button class="resultado-busca__volta-busca primary">Nova Busca</button>
+            <button class="result-search__back-search primary">Nova Busca</button>
         </div>
         <div class="right">
             <p>All rights reserved by Eliel &copy;</p>
@@ -95,8 +95,8 @@
                 </fieldset>
                 <fieldset>
                     <legend>Cidade</legend>
-                    <select class="select-cidades">
-                        <option value="">Selecione a Cidade</option>
+                    <select class="select-citys">
+                        
                     </select>
                 </fieldset>
             </div>

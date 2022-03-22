@@ -1,17 +1,18 @@
+import errors from "./notificationsErrors.js";
 document.addEventListener("DOMContentLoaded",()=>{
     (()=>{
-        var containerSearch = document.querySelector(".container__consulta-cep");
-        var containerTable = document.querySelector(".container__resultado-busca");
-        var btnNewSearch = document.querySelector(".resultado-busca__volta-busca");
+        var containerSearch = document.querySelector(".container__search-cep");
+        var containerTable = document.querySelector(".container__result-search");
+        var btnNewSearch = document.querySelector(".result-search__back-search");
         var inputSearch = document.querySelector("#cep");
-        var formSearch = document.querySelector(".consulta-cep__form");
+        var formSearch = document.querySelector(".search-cep__form");
         var loadingSearch = document.querySelector(".loading");
         var tbody = document.querySelector(".tbody");
 
         //selects and modal buttons
-        var modalUf = document.querySelector(".modal-fullscreen");
+        var modal = document.querySelector(".modal-fullscreen");
         var selectUf = document.querySelector(".select-uf");
-        var selectCity = document.querySelector(".select-cidades");
+        var selectCity = document.querySelector(".select-citys");
         var btnConfirm = document.querySelector(".btn-confirm-modal");
 
         var validInputCep = /^[0-9]{8}$/;
@@ -49,27 +50,37 @@ document.addEventListener("DOMContentLoaded",()=>{
             inputSearch.focus();
         })
 
-        modalUf.addEventListener("click",(e)=>{
+        modal.addEventListener("click",(e)=>{
             var modalFull = e.target;
             if(modalFull.classList.contains("modal-fullscreen")){
                 removeContentSelects();
                 hiddenDivContent(modalFull);
                 hiddenDivContent(loadingSearch);
+                showDivContent(modal.firstElementChild);
+                if(modal.querySelector(".message-error")){
+                    modal.removeChild(modal.querySelector(".message-error"));
+                }
             }
         })
 
         const search = (contentSearch)=>{
-            if(validInputCep.test(contentSearch)||validInputCepHifen.test(contentSearch)){
-                requestSearch("https://viacep.com.br/ws/"+contentSearch+"/json/");
+            try{
+                if(validInputCep.test(contentSearch)||validInputCepHifen.test(contentSearch)){
+                    requestSearch("https://viacep.com.br/ws/"+contentSearch+"/json/");
+                }
+                else if(validInputLogradouro.test(contentSearch)){
+                    showDivContent(modal);
+                    requestCity();
+                }
+                else{
+                    hiddenDivContent(loadingSearch);
+                    throw 12;
+                }
             }
-            else if(validInputLogradouro.test(contentSearch)){
-                showDivContent(modalUf);
-                requestCity();
+            catch(statusError){
+                showErrors(statusError);
             }
-            else{
-                alert("Informações invalidas");
-                hiddenDivContent(loadingSearch);
-            }
+            
         }
 
         const requestCity = ()=>{
@@ -85,11 +96,16 @@ document.addEventListener("DOMContentLoaded",()=>{
             xhttp.responseType="json";
 
             xhttp.onload = ()=>{
-                if(xhttp.readyState==4 && xhttp.status=="200"){
-                    validResponse(xhttp.response,street);
+                try{
+                    if(xhttp.readyState==4 && xhttp.status=="200"){
+                        validResponse(xhttp.response,street);
+                    }
+                    else{
+                        throw 13;
+                    }
                 }
-                else{
-                    alert("Requisição não concluida");
+                catch(statusError){
+                    showErrors(statusError);
                 }
             };
             xhttp.open("GET",url);
@@ -110,34 +126,46 @@ document.addEventListener("DOMContentLoaded",()=>{
         }
 
         const validResponseCep = (response)=>{
-            if(response.erro){
-                alert("Endereço não encontrado, verifique se o CEP está correto");
+            try{
+                if(response.erro){
+                    throw 11;
+                }
+                else{
+                    addContentTable([response]);
+                    showTableHiddenSearch();
+                }
             }
-            else{
-                addContentTable([response]);
-                showTableHiddenSearch();
+            catch(statusError){
+                showErrors(statusError);
             }
+            
             hiddenDivContent(loadingSearch);
         }
 
         const validResponseCity = (response)=>{
-            if(response.length==1 && response[0].logradouro==""){
-                alert("Nao encontrado");
+            try{
+                if(response.length==1 && response[0].logradouro==""){
+                    throw 10;
+                }
+                else if(!response.length==0){
+                    addContentTable(response);
+                    showTableHiddenSearch();
+                }
+                else{
+                    throw 10;
+                }
             }
-            else if(!response.length==0){
-                addContentTable(response);
-                showTableHiddenSearch();
+            catch(statusError){
+                showErrors(statusError);
             }
-            else{
-                alert("Nao encontrado");
-            }
+            
             hiddenDivContent(loadingSearch);
         }
 
         const validInputsModal = (uf,city,street)=>{
             if(uf && city && street){
                 requestSearch("https://viacep.com.br/ws/"+uf+"/"+city+"/"+street+"/json/","street");
-                hiddenDivContent(modalUf);
+                hiddenDivContent(modal);
             }
             else{
                 alert("Preencha todos os campos");
@@ -170,9 +198,9 @@ document.addEventListener("DOMContentLoaded",()=>{
             var tbody = document.querySelector(".tbody");
             content.forEach(e=>{
                 const tr = document.createElement("tr");
-                for(var x=0; x<filterJason(e).length;x++){
+                for(var x=0; x<filterJson(e).length;x++){
                     const td = document.createElement("td");
-                    td.textContent=filterJason(e)[x];
+                    td.textContent=filterJson(e)[x];
                     tr.appendChild(td);
                 }
                 tbody.appendChild(tr);
@@ -185,8 +213,8 @@ document.addEventListener("DOMContentLoaded",()=>{
         }
 
         const removeCitySelect  = ()=>{
-            while(selectCity.lastChild){
-                selectCity.removeChild(selectCity.lastChild);
+            while(selectCity.firstChild){
+                selectCity.removeChild(selectCity.firstChild);
             }
         }
 
@@ -196,10 +224,21 @@ document.addEventListener("DOMContentLoaded",()=>{
             })
         }
 
-        const filterJason = (json)=>{
+        const filterJson = (json)=>{
             return [json.logradouro,json.bairro,json.localidade,json.uf,json.cep,json.ddd];
         }
 
+
+        const showErrors = (status)=>{
+            showDivContent(modal);
+            if(!modal.querySelector(".message-error")){
+                hiddenDivContent(modal.firstElementChild);
+                modal.innerHTML+=
+                `<span class='message-error'>
+                    Error[${status}]::${errors[status].title}. ${errors[status].suggestion}
+                </span>`;
+            }
+        }
 
     })()
 
