@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 body{
+    height: 100vh;
     font-family: sans-serif;
     background-image: url("../imagens/img-fundo.jpg");
     background-size: cover;
@@ -103,7 +104,7 @@ input[type="text"]:focus{
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     top:0;
     left: 0;
     background-color: rgba(0, 0, 0,0.5);
