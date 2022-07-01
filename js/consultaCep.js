@@ -1,6 +1,8 @@
 import errors from "./notificationsErrors.js";
 document.addEventListener("DOMContentLoaded",()=>{
     (()=>{
+
+        //components
         var containerSearch = document.querySelector(".container__search-cep");
         var containerTable = document.querySelector(".container__result-search");
         var btnNewSearch = document.querySelector(".result-search__back-search");
@@ -15,18 +17,19 @@ document.addEventListener("DOMContentLoaded",()=>{
         var selectCity = document.querySelector(".select-citys");
         var btnConfirm = document.querySelector(".btn-confirm-modal");
 
+        //regex
         var validInputCep = /^[0-9]{8}$/;
         var validInputCepHifen = /^[0-9]{5}-[0-9]{3}$/;
         var validInputLogradouro = /^[a-zà-ú]{3,}[a-zà-ú0-9 ]*$/i;
         
-        //mask CEP
+        
         inputSearch.addEventListener("input",()=>{
             inputSearch.value=inputSearch.value
             .replace(/([0-9]{5})(\d)/,"$1-$2")
             .replace(/(-[0-9]{3}).+/,"$1");
         })
 
-
+        
         formSearch.addEventListener("submit",(even)=>{
             even.preventDefault();
             showDivContent(loadingSearch);
@@ -34,6 +37,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             search(contentSearch);
         });
 
+        
         btnConfirm.addEventListener("click",()=>{
             var uf = selectUf.value;
             var city = selectCity.value;
@@ -42,6 +46,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             removeContentSelects();
         })
 
+        
         btnNewSearch.addEventListener("click",()=>{
             removeContentTable();
             hiddenDivContent(containerTable);
@@ -50,6 +55,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             inputSearch.focus();
         })
 
+        
         modal.addEventListener("click",(e)=>{
             var modalFull = e.target;
             if(modalFull.classList.contains("modal-fullscreen")){
@@ -91,25 +97,48 @@ document.addEventListener("DOMContentLoaded",()=>{
             })
         }
 
-        const requestSearch = (url,street)=>{
-            var xhttp = new XMLHttpRequest();
-            xhttp.responseType="json";
+        const requestSearch = async (url,street)=>{
 
-            xhttp.onload = ()=>{
+            try{
                 try{
-                    if(xhttp.readyState==4 && xhttp.status=="200"){
-                        validResponse(xhttp.response,street);
-                    }
-                    else{
-                        throw 13;
-                    }
+                    var requestAPI = fetch(url);
+                    var response = await requestAPI;
                 }
-                catch(statusError){
-                    showErrors(statusError);
+                catch(error){
+                    throw 13;
                 }
-            };
-            xhttp.open("GET",url);
-            xhttp.send();
+                if(response.ok){
+                    var data = await response.json();
+                    validResponse(data,street);
+                }
+                else{
+                    throw 13;
+                }
+            }
+            catch(error){
+                showErrors(error);
+            }
+            
+
+
+            // var xhttp = new XMLHttpRequest();
+            // xhttp.responseType="json";
+
+            // xhttp.onload = ()=>{
+            //     try{
+            //         if(xhttp.readyState==4 && xhttp.status=="200"){
+            //             validResponse(xhttp.response,street);
+            //         }
+            //         else{
+            //             throw 13;
+            //         }
+            //     }
+            //     catch(statusError){
+            //         showErrors(statusError);
+            //     }
+            // };
+            // xhttp.open("GET",url);
+            // xhttp.send();
         }
 
         const validResponse = (response,street)=>{

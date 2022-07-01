@@ -19,7 +19,7 @@ h2{
 label{
     margin: 10px 0 0;
 }
-input[type="text"]{
+#cep{
     width: 300px;
     padding: 10px 10px;
     outline: none;
